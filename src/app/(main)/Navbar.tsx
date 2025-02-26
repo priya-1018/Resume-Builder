@@ -6,7 +6,7 @@ import Link from "next/link";
 import logo from "@/assets/logo.png"
 import { UserButton } from "@clerk/nextjs";
 import { ClerkProvider } from '@clerk/nextjs';
-import { CreditCard } from "lucide-react";
+import { CreditCard, Italic } from "lucide-react";
 import {dark} from "@clerk/themes";
 import { useTheme } from "next-themes";
 
@@ -27,7 +27,7 @@ export default function Navbar() {
             className="rounded-full"
             />
             <span className="text-xl font-bold tracking-tight">
-                AI Resume Builder
+                <i style={{ color: theme ==="dark" ? "#12b54b" : "#3a5af8"}}>Elevate</i>CV
             </span>
             </Link>
             <div className="flex items-center gap-3">

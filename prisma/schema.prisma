@@ -6,12 +6,13 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
   provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  url       = env("DATABASE_URL")
+  //directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Resume {
@@ -21,7 +22,9 @@ model Resume {
   title       String?
   description String?
 
-  photoUrl    String?
+  //photoUrl    String?
+  photoData   String?
+  photoMime   String?
   colorHex    String  @default("#000000")
   borderStyle String  @default("squircle")
   summary     String?
@@ -33,6 +36,8 @@ model Resume {
   email       String?
 
   workExperiences WorkExperience[]
+  educations Education[]
+  skills String[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -57,4 +62,21 @@ model WorkExperience {
   updatedAt DateTime @updatedAt
 
   @@map("work_experiences")
+}
+
+model Education {
+  id String @id @default(cuid())
+
+  degree String?
+  school String?
+  startDate DateTime?
+  endDate DateTime?
+
+  resumeId String
+  resume Resume @relation(fields: [resumeId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("educations")
 }
